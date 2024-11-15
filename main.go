@@ -50,6 +50,14 @@ func main() {
 	modeFlag := flag.String("mode", "", "Operation mode: 'sender' or 'receiver'")
 	flag.Parse()
 
+	if *modeFlag == "" {
+		fmt.Print("Enter mode (sender/receiver): ")
+		reader := bufio.NewReader(os.Stdin)
+		modeStr, _ := reader.ReadString('\n')
+		modeStr = strings.TrimSpace(strings.ToLower(modeStr))
+		*modeFlag = modeStr
+	}
+
 	switch strings.ToLower(*modeFlag) {
 	case "sender":
 		mode = Sender
@@ -215,6 +223,8 @@ func runSender() {
 	c.WriteJSON(Packet{SequenceNumber: -1, Data: "EOT"})
 	fmt.Println("\nTransmission complete.")
 }
+
+// ... [rest of the code remains the same: handleConnections, createPackets, displayReconstructedMessage] ...
 
 func createPackets(content string) []Packet {
 	var packets []Packet
