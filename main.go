@@ -224,8 +224,6 @@ func runSender() {
 	fmt.Println("\nTransmission complete.")
 }
 
-// ... [rest of the code remains the same: handleConnections, createPackets, displayReconstructedMessage] ...
-
 func createPackets(content string) []Packet {
 	var packets []Packet
 	sequenceNumber := 0
@@ -238,7 +236,7 @@ func createPackets(content string) []Packet {
 		chunk := content[i:end]
 		packets = append(packets, Packet{
 			SequenceNumber: sequenceNumber,
-			Data:           strings.TrimSpace(chunk),
+			Data:           chunk,
 		})
 		sequenceNumber++
 	}
